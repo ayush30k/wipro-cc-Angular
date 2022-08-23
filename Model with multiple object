@@ -1,0 +1,52 @@
+HTML ---------------------------
+<h1>ANGULAR</h1>
+<table>
+    <tr>
+        <td>Roll No</td>
+        <td>Name</td>
+        <td>Gender</td>
+        <td>Marks</td>
+        <td>Semester</td>
+    </tr>
+    <tr *ngFor="let student of students">
+        <td>{{student.rollNo}}</td>
+        <td>{{student.name}}</td>
+        <td>{{student.gender}}</td>
+        <td>{{student.marks}}</td>
+        <td>{{student.sem}}</td>
+    </tr>
+</table>
+
+TS --------------------------------
+import { Component, OnInit } from '@angular/core';
+import { Student } from 'src/student.model';
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
+})
+export class MenuComponent implements OnInit {
+
+  ngOnInit(): void {
+  }
+  students:Student[]=[]
+  constructor(){
+    let stud1={'rollNo':1,'gender':"Male",'name':"John","marks":56,"sem":8}
+    let stud2={'rollNo':2,'gender':"Male",'name':"Doe","marks":59,"sem":2}
+    let stud3={'rollNo':3,'gender':"Male",'name':"Lorem","marks":85,"sem":3}
+
+    this.students.push(stud1)
+    this.students.push(stud2)
+    this.students.push(stud3)
+  }
+
+}
+STUDENT CLASS --------------------------------
+export class Student{
+    rollNo:number=0;
+    name:String="";
+    gender:String="";
+    marks:number=0;
+    sem:number=0;
+}
