@@ -1,0 +1,84 @@
+HTML-----------------------------------
+<h1>ANGULAR</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">  <label >Roll NO</label> </div>
+        <div class="col-md-2">  <input type="number" [(ngModel)]="student.rollNo"> </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">  <label >Name</label> </div>
+        <div class="col-md-2">  <input type="text" [(ngModel)]="student.name"> </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">  <label >Gender</label> </div>
+        <div class="col-md-1">  <input type="radio" value="MALE" [(ngModel)]="student.gender">Male </div>
+        <div class="col-md-1">  <input type="radio" value="FEMALE" [(ngModel)]="student.gender">Female </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">  <label >Marks</label> </div>
+        <div class="col-md-2">  <input type="number" [(ngModel)]="student.marks"> </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">  <label >Semester</label> </div>
+        <div class="col-md-2">  <input type="number" [(ngModel)]="student.sem"> </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-success" (click)="addStudent(student)">Add Student</button>
+    </div>
+    <br>
+    <div class="row">
+        <table>
+            <tr>
+                <td>Roll No</td>
+                <td>Name</td>
+                <td>Gender</td>
+                <td>Marks</td>
+                <td>Semester</td>
+            </tr>
+            <tr *ngFor="let student of students">
+                <td>{{student.rollNo}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.marks}}</td>
+                <td>{{student.sem}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+TS FILE -------------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { Student } from 'src/student.model';
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
+})
+export class MenuComponent implements OnInit {
+
+  ngOnInit(): void {
+  }
+  students:Student[]=[]
+  student:Student
+  constructor(){
+   this.student=new Student();
+  }
+  addStudent(student:Student){
+
+    let stud={rollNo:student.rollNo,name:student.name,gender:student.gender,marks:student.marks,sem:student.sem}
+    this.students.push(stud);
+  }
+
+}
+STUDENT FILE-----------------------------------------------
+export class Student{
+    rollNo:number=0;
+    name:String="";
+    gender:String="";
+    marks:number=0;
+    sem:number=0;
+}
