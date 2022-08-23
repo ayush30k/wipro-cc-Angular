@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="p-box">
+        <p [ngStyle]="{'font-size':fsize}"> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Iure sunt non iusto, sit modi 
+            debitis pariatur itaque asperiores deleniti! Neque 
+        reprehenderit pariatur quos ipsum?</p>
+    </div>
+   
+    <br>
+    <div class="row">
+       
+        <div class="col-md-6"> <p>Font Controller</p></div>
+        <div class="col-md-6"><p>Current Font Size</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button (click)="fontInc()"><mat-icon>keyboard_arrow_up</mat-icon></button>
+            <button (click)="fontDec()"><mat-icon>keyboard_arrow_down</mat-icon></button></div>
+        <div [style.color]=fclr class="col-md-6"><p>{{fsize}}</p></div>
+    </div>
+   
+    
+</div>
+
+-------------------------------------------------------------
+TYPESCRIPT
+
+f=20;
+  fsize="20px";
+  fclr=''
+  fontInc(){
+      this.f=this.f+5
+      if(this.f>=50){
+        this.fclr="red"
+       alert("you have reached MaX limit")
+       
+      }
+     else{
+      this.fsize=this.f+"px"
+      this.fclr="green"
+     }
+
+  }
+  fontDec(){
+    this.f=this.f-5
+      if(this.f<=10){
+        this.fclr='red'
+       alert("you have reached MIN limit")
+       
+      }
+     else{
+      this.fsize=this.f+"px"
+      this.fclr="green"
+     }
+  }
+  ngOnInit(): void {
+  }
+
+}
+---------------------------------
+CSS
+.p-box{
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+    line-height: 35px;
+}
+
