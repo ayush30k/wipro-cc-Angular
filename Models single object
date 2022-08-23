@@ -1,0 +1,56 @@
+html-------------------------
+<h1>ANGULAR</h1>
+<input type="radio" value="MALE" [(ngModel)]="student.gender">Male
+<input type="radio" value="FEMALE" [(ngModel)]="student.gender">Female
+
+<br>
+<input type="text" [(ngModel)]="student.name">
+
+<br>
+roll No - {{student.rollNo}}
+<br>
+Name    - {{student.name}}
+<br>
+marks   - {{student.marks}}
+<br>
+Gender   - {{student.gender}}
+
+Student Class(MODEL) ---------------------------------------
+
+
+export class Student{
+    rollNo:number=0;
+    name:String="";
+    gender:String="";
+    marks:number=0;
+    sem:number=0;
+}
+
+TS file ---------------------------
+
+
+import { Component, OnInit } from '@angular/core';
+import { Student } from 'src/student.model';
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
+})
+export class MenuComponent implements OnInit {
+
+  ngOnInit(): void {
+  }
+  student:Student
+  constructor(){
+   this.student=new Student();
+   this.student.name="Ayush"
+   this.student.rollNo=1;
+   this.student.gender="Male"
+   this.student.sem=7;
+   this.student.marks=67
+  }
+
+}
+
+
