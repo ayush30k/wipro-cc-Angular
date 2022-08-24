@@ -1,0 +1,89 @@
+user.service.ts -------------------------------------
+
+import { Injectable } from '@angular/core';
+import { Users } from '../models/users.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  users:Users[]=[]
+
+  //Function to add users to users ARRAY
+  addUsers(user:Users){
+    this.users.push(user)
+  }
+  //Function to return users
+   getUsers():Users[]{
+    return this.users;
+  }
+
+  constructor() { }
+}
+-----------------------------------------------------------
+view.components.ts  ------------------
+
+import { Component, OnInit } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
+import { UserService } from 'src/app/services/user.service';
+
+@Component({
+  selector: 'app-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.css']
+})
+export class ViewComponent implements OnInit {
+  users:Users[]=[]
+
+  constructor(private userSer:UserService) { }
+
+  ngOnInit(): void {
+   this.users= this.userSer.getUsers()
+
+  }
+
+}
+--------------------------------------------------------------
+add.components.ts -------------------------------
+
+import { Component, OnInit } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
+import { UserService } from 'src/app/services/user.service';
+
+@Component({
+  selector: 'app-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.css']
+})
+export class AddComponent implements OnInit {
+  user:Users
+  cities=["Hyderabad","Bangalore","Mumbai","pune","Mysore"]
+  checkVals=["java","spring","Angular","HTML"]
+  selectedCity=""
+
+  skills:any[]=[];
+
+
+  constructor(private userSer:UserService) { 
+    this.user=new Users()
+  }
+  addUser(user:Users){
+    for(let i=0;i<this.checkVals.length;i++){
+      if(this.skills[i]==true){
+        this.skills[i]=this.checkVals[i];
+      }
+    }
+    let user1={userName:user.userName,password:user.password,confirmpassword:user.confirmpassword,email:user.email,
+    city:this.selectedCity,gender:user.gender,mstatus:user.mstatus,dob:user.dob,contactnumber:user.contactnumber,skills:this.skills}
+    this.userSer.addUsers(user1);
+
+  }
+
+  ngOnInit(): void {
+  }
+
+}
+-------------------------------------------------
+
+REST HTML AND CSS FILES ARE SAME AS PREVIOUS ONE 
