@@ -1,0 +1,190 @@
+HTML---------------------------------------------
+<div class="container">
+    <h1>User Registration</h1>
+    <div class="form">
+       
+    
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">User Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="user.userName" >
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" [(ngModel)]="user.password" >
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Confirm Password</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" [(ngModel)]="user.confirmpassword" >
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" [(ngModel)]="user.email" >
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">City</label>
+            <div class="col-sm-9">
+                <select (change)="changeVal()" [(ngModel)]="selectedCity" class="form-control"> 
+                    <option *ngFor="let city of cities"> {{city}} </option> 
+                    </select>
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Gender</label>
+            <div class="col-sm-3">
+              <input type="radio" class="form-check-input" value="MALE" [(ngModel)]="user.gender" >Male
+            </div>
+            <div class="col-sm-3">
+                <input type="radio" class="form-check-input" value="FEMALE" [(ngModel)]="user.gender" >Female
+              </div>
+              <div class="col-sm-3">
+                <input type="radio" class="form-check-input" value="OTHER" [(ngModel)]="user.gender" >Other
+              </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Date of Birth</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control" [(ngModel)]="user.dob" >
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Contact Number</label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control" [(ngModel)]="user.contactnumber" >
+            </div>
+         </div>
+
+         <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Skills</label>
+            <div class="col-sm-2">
+              <input type="checkbox" class="form-check-input" name="skills" value="java" [(ngModel)]="skills[0]" >java 
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" class="form-check-input" name="skills" value="Spring" [(ngModel)]="skills[1]" >Spring
+              </div>
+              <div class="col-sm-2">
+                <input type="checkbox" class="form-check-input" name="skills"  [(ngModel)]="skills[2]" value="Angular">Angular
+              </div>
+              <div class="col-sm-2">
+                <input type="checkbox" class="form-check-input" name="skills" value="js" [(ngModel)]="skills[3]" >Html
+              </div>
+         </div>
+        
+         
+       <button class="btn btn-success submit-" (click)="addUser(user)">Add User</button>
+    </div>
+    <br>
+   <h1>Registered Users</h1>
+
+    <div class="row table">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">City</th>
+                <th scope="col">Gender</th>
+                <th scope="col">DOB</th>
+                <th scope="col">Skills</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <th scope="row">{{user.userName}}</th>
+                <td>{{user.email}}</td>
+                <td>{{user.city}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.dob}}</td>
+                <td>{{user.skills}}</td>
+
+
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+CSS----------------------------------------------
+
+h1{
+    text-align: center;
+}
+.form{
+    padding: 15px;
+    margin: auto;
+    height: 600px;
+    width: 580px;
+    background-color: rgb(251, 255, 182);
+}
+.table{
+    min-height: 300px;
+}
+
+TS FILE ------------------------------------------------------------------
+
+import { generateForwardRef } from '@angular/compiler/src/render3/util';
+import { Component, OnInit } from '@angular/core';
+import { Users } from 'src/app/models/users.model';
+
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+  ngOnInit(): void {
+  }
+  users:Users[]=[]
+  user:Users
+  cities=["Hyderabad","Bangalore","Mumbai","pune","Mysore"]
+  checkVals=["java","spring","Angular","HTML"]
+  selectedCity=""
+
+  skills:any[]=[];
+
+ 
+  constructor() { 
+    this.user=new Users()
+  }
+  addUser(user:Users){
+    console.log(this.skills);
+    for(let i=0;i<this.checkVals.length;i++){
+      if(this.skills[i]==true){
+        this.skills[i]=this.checkVals[i];
+      }
+    }
+    let user1={userName:user.userName,password:user.password,confirmpassword:user.confirmpassword,email:user.email,
+    city:this.selectedCity,gender:user.gender,dob:user.dob,contactnumber:user.contactnumber,skills:this.skills}
+    this.users.push(user1)
+  }
+  changeVal(){
+
+  }
+
+
+}
+
+
+USER CLASS ----------------------------------------
+
+export class Users {
+    userName:String=""
+    password:String=""
+    confirmpassword:String=""
+    email:String=""
+    city:String=""
+    gender:String=""
+    dob:String=""
+    contactnumber:any;
+    skills:any=[]  ;                                           
+}
